@@ -1,0 +1,17 @@
+nav {
+  display: flex;
+  justify-content: space-around;
+}
+
+ul {
+  list-style: none;
+}
+
+a:hover,
+button:hover {
+  cursor: crosshair;
+}
+
+a:hover {
+  font-style: italic;
+}
