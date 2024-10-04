@@ -1,10 +1,24 @@
 import { useParams } from "react-router-dom";
-import { useGetPartyQuery } from "../store/partySlice";
+import { useDeletePartyMutation, useGetPartyQuery } from "../store/partySlice";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export default function PartyDetails() {
   const { id } = useParams();
 
   const { data: party, isLoading, error } = useGetPartyQuery(id);
+  const [deleteParty, { isLoading: isDeleting }] = useDeletePartyMutation();
+
+  const navigate = useNavigate();
+
+  async function removeParty() {
+    try {
+      await deleteParty(id).unwrap();
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   if (isLoading) {
     return <p>Loading party...</p>;
@@ -16,18 +30,13 @@ export default function PartyDetails() {
 
   return (
     <article>
-      {party ? (
-        <>
-          <h1>
-            {party.name} {party.id}
-          </h1>
-          <p>{party.date}</p>
-          <p>{party.description}</p>
-          <button>Delete Party</button>
-        </>
-      ) : (
-        <p>There is no selected party.</p>
-      )}
+      <h1>
+        {party.name} #{party.id}
+      </h1>
+      <p>{party.date}</p>
+      <p>{party.description}</p>
+      <button onClick={removeParty}>Delete Party</button>
+      {isDeleting && <p>Deleting...</p>}
     </article>
   );
 }

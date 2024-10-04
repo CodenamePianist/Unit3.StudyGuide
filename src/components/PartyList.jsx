@@ -4,8 +4,6 @@ import { useGetPartiesQuery } from "../store/partySlice";
 export default function PartyList() {
   const { data: parties = [], isLoading, error } = useGetPartiesQuery();
 
-  const navigate = useNavigate();
-
   if (isLoading) {
     return <p>Loading Parties...</p>;
   }

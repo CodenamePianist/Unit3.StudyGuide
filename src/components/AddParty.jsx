@@ -25,7 +25,7 @@ export default function AddParty() {
         description,
         date: isoDate,
       }).unwrap();
-      navigate(`/events/${party.id}`);
+      navigate(`/parties/${party.id}`);
     } catch (error) {
       setError(error.message);
     }
