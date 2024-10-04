@@ -11,7 +11,7 @@ const partyApi = api.injectEndpoints({
     getParty: build.query({
       query: (id) => "events/" + id,
       transformResponse: (response) => response.data,
-      transformErrorResponse: (response) => response.error,
+      transformErrorResponse: (response) => response.data.error,
       providesTags: ["Events"],
     }),
     addParty: build.mutation({

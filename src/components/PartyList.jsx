@@ -1,8 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useGetPartiesQuery } from "../store/partySlice";
 
 export default function PartyList() {
   const { data: parties = [], isLoading, error } = useGetPartiesQuery();
+
+  const navigate = useNavigate();
 
   if (isLoading) {
     return <p>Loading Parties...</p>;
@@ -20,7 +22,7 @@ export default function PartyList() {
     <ul>
       {parties.map((party) => (
         <li key={party.id}>
-          <Link to={`/events/${party.id}`}>{party.name}</Link>
+          <Link to={`/parties/${party.id}`}>{party.name}</Link>
           <p>{party.location}</p>
         </li>
       ))}
